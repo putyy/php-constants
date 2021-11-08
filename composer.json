@@ -1,0 +1,20 @@
+{
+  "name": "putyy/php-constants",
+  "description": "The php-constants Packages",
+  "homepage": "https://github.com/putyy/php-constants.git",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "putyy",
+      "email": "putyy@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pt\\Constants\\": "src"
+    }
+  }
+}
