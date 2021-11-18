@@ -5,23 +5,29 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/test.php';
 require_once __DIR__ . '/we-chat.php';
 
-# 示例1
-var_dump(TestConst::relationVk());
-
-var_dump(TestConst::relationKv());
-
-var_dump(TestConst::groupRelation('bb'));
-
-var_dump(TestConst::groupRelationKv('bb'));
-
-var_dump(TestConst::allRelation());
-
-var_dump(TestConst::allRelationKv());
-
-# 示例2
-// todo 发送微信消息
-$msg = WeChatMsgConst::buildMessage([
-    "openid"=>"asdsadqwewqe",
-    "content"=>"hello PHP~",
-]);
-
+// // todo 示例2
+//var_dump(TestConst::getValueDescArr());
+//
+//var_dump(TestConst::getDescValueArr());
+//
+//var_dump(TestConst::getRelationDescValue());
+//
+//var_dump(TestConst::getGroupValueDescArr('bb'));
+//
+//var_dump(TestConst::getGroupDescValueArr('bb'));
+//
+//var_dump(TestConst::getGroupRelationDescValue('bb'));
+//
+//var_dump(TestConst::allValueDescArr());
+//
+//var_dump(TestConst::allDescValueArr());
+//
+//var_dump(TestConst::allRelationDescValue());
+//
+// // todo 示例2
+// // 发送微信消息
+//$msg = WeChatMsgConst::buildMessage([
+//    "openid"=>"asdsadqwewqe",
+//    "content"=>"hello PHP~",
+//], 1);
+//var_dump($msg);

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Pt\Constants;
 
-abstract class MessageBaseConst extends BaseConst
+abstract class DescConst extends BaseConst
 {
     /**
      * @var null | array
@@ -14,7 +14,7 @@ abstract class MessageBaseConst extends BaseConst
 
     protected static $allMessageInfo = null;
 
-    protected static $messageInfoKv = null;
+    protected static $messageInfoDescValue = null;
 
     protected static $groupMessageInfoKv = null;
 
@@ -23,7 +23,7 @@ abstract class MessageBaseConst extends BaseConst
     /**
      * @var string
      */
-    protected static $messageAnnotationMark = 'Message';
+    protected static $messageAnnotationMark = 'Desc';
 
     /**
      * @var string
@@ -33,21 +33,12 @@ abstract class MessageBaseConst extends BaseConst
     /**
      * @var null
      */
-    protected static $keyName = 'desc';
+    protected static $descName = 'desc';
 
     /**
      * @var null
      */
     protected static $valueName = 'value';
-
-    /**
-     * @param int | string $mark
-     * @return string
-     */
-    public static function getMessage($mark): string
-    {
-        return static::relationVk()[$mark];
-    }
 
     /**
      * 分解注释
@@ -78,53 +69,77 @@ abstract class MessageBaseConst extends BaseConst
         }
     }
 
+    public static function getDesc($mark): string
+    {
+        return static::getValueDescArr()[$mark];
+    }
+
     /**
-     * 获取常量对应注解关系数组 value=>key
+     * 常量值=>注解值.
      * @return array
      */
-    public static function relationVk(): array
+    public static function getValueDescArr(): array
     {
         self::checkDecomposeNotes();
         return static::$messageInfo[static::class];
     }
 
     /**
-     * 获取常量对应注解关系数组
+     *  注解值=>常量值
      * @return array
      */
-    public static function relationKv(): array
+    public static function getDescValueArr(): array
     {
-        if (isset(self::$messageInfoKv[static::class])) {
-            return self::$messageInfoKv[static::class];
+        self::checkDecomposeNotes();
+        return array_flip(static::$messageInfo[static::class]);
+    }
+
+    /**
+     * 自定义键值 数组 [$valueName=>常量值, $descName=>注解值]
+     * @return array
+     */
+    public static function getRelationDescValue(): array
+    {
+        if (isset(self::$messageInfoDescValue[static::class])) {
+            return self::$messageInfoDescValue[static::class];
         }
         self::checkDecomposeNotes();
         $relation = [];
         foreach (self::$messageInfo[static::class] as $value => $desc) {
             $relation[] = [
                 self::$valueName => $value,
-                self::$keyName => $desc,
+                self::$descName => $desc,
             ];
         }
-        return self::$messageInfoKv[static::class] = $relation;
+        return self::$messageInfoDescValue[static::class] = $relation;
     }
 
     /**
-     * 获取常量对应注解关系数组(分组)
      * @param string $groupMark
      * @return array
      */
-    public static function groupRelation(string $groupMark): array
+    public static function getGroupValueDescArr(string $groupMark): array
     {
         self::checkDecomposeNotes();
         return self::$groupMessageInfo[static::class][$groupMark];
     }
 
     /**
+     * @param string $groupMark
+     * @return array
+     */
+    public static function getGroupDescValueArr(string $groupMark): array
+    {
+        self::checkDecomposeNotes();
+        return array_flip(self::$groupMessageInfo[static::class][$groupMark]);
+    }
+
+    /**
      * 获取常量对应注解关系数组(分组)
      * @param string $groupMark
      * @return array
      */
-    public static function groupRelationKv(string $groupMark): array
+    public static function getGroupRelationDescValue(string $groupMark): array
     {
         if (isset(self::$groupMessageInfoKv[static::class])) {
             return self::$groupMessageInfoKv[static::class][$groupMark];
@@ -136,7 +151,7 @@ abstract class MessageBaseConst extends BaseConst
             foreach ($item as $value => $desc) {
                 $relation[$groupMark][] = [
                     self::$valueName => $value,
-                    self::$keyName => $desc,
+                    self::$descName => $desc,
                 ];
             }
         }
@@ -144,22 +159,19 @@ abstract class MessageBaseConst extends BaseConst
         return self::$groupMessageInfoKv[static::class][$groupMark];
     }
 
-
-    /**
-     * 获取常量对应注解关系数组-所有
-     * @return array
-     */
-    public static function allRelation(): array
+    public static function allValueDescArr(): array
     {
         self::checkDecomposeNotes();
         return static::$allMessageInfo[static::class];
     }
 
-    /**
-     * 获取常量对应注解关系数组-所有
-     * @return array
-     */
-    public static function allRelationKv(): array
+    public static function allDescValueArr(): array
+    {
+        self::checkDecomposeNotes();
+        return array_flip(static::$allMessageInfo[static::class]);
+    }
+
+    public static function allRelationDescValue(): array
     {
         if (isset(self::$allMessageInfoKv[static::class])) {
             return self::$allMessageInfoKv[static::class];
@@ -169,7 +181,7 @@ abstract class MessageBaseConst extends BaseConst
         foreach (self::$allMessageInfo[static::class] as $value => $desc) {
             $relation[] = [
                 self::$valueName => $value,
-                self::$keyName => $desc,
+                self::$descName => $desc,
             ];
         }
         return self::$allMessageInfoKv[static::class] = $relation;

@@ -1,12 +1,23 @@
 ## 自用常量基础类库
 
 ### 示例1
-```php
-// todo 发送微信消息
-$msgData= WeChatMsgConst::buildMessage([
-    "openid"=>"asdsadqwewqe",
-    "content"=>"hello PHP~",
-]);
+```shell
+# todo 发送微信消息
+# $msgData= WeChatMsgConst::buildMessage([
+#    "openid"=>"asdsadqwewqe",
+#    "content"=>"hello PHP~",
+# ]);
+# var_dump($msgData);
+
+string(114) "
+    {
+    "touser":"asdsadqwewqe",
+    "msgtype":"text",
+    "text":
+    {
+    "content":"hello PHP~"
+    }
+    }"
 
 ```
 
@@ -62,7 +73,7 @@ class TestConst extends \Pt\Constants\MessageBaseConst {
 
 
 ```shell
-# var_dump(TestConst::relationVk());
+# var_dump(TestConst::getValueDescArr());
 array(2) {
   [11]=>
   string(3) "555"
@@ -70,7 +81,15 @@ array(2) {
   string(3) "666"
 }
 
-# var_dump(TestConst::relationKv());
+# var_dump(TestConst::getDescValueArr());
+array(2) {
+  [555]=>
+  int(11)
+  [666]=>
+  int(22)
+}
+
+# var_dump(TestConst::getRelationDescValue());
 array(2) {
   [0]=>
   array(2) {
@@ -88,7 +107,7 @@ array(2) {
   }
 }
 
-# var_dump(TestConst::groupRelation('bb'));
+# var_dump(TestConst::getGroupValueDescArr('bb'));
 array(2) {
   [333]=>
   string(3) "777"
@@ -96,7 +115,15 @@ array(2) {
   string(3) "888"
 }
 
-# var_dump(TestConst::groupRelationKv('bb'));
+# var_dump(TestConst::getGroupDescValueArr('bb'));
+array(2) {
+  [777]=>
+  int(333)
+  [888]=>
+  int(444)
+}
+
+# var_dump(TestConst::getGroupRelationDescValue('bb'));
 array(2) {
   [0]=>
   array(2) {
@@ -114,7 +141,7 @@ array(2) {
   }
 }
 
-# var_dump(TestConst::allRelation());
+# var_dump(TestConst::allValueDescArr());
 array(6) {
   [11]=>
   string(3) "555"
@@ -130,7 +157,23 @@ array(6) {
   string(3) "888"
 }
 
-# var_dump(TestConst::allRelationKv());
+# var_dump(TestConst::allDescValueArr());
+array(6) {
+  [555]=>
+  int(11)
+  [666]=>
+  int(22)
+  [33333]=>
+  int(33)
+  [22222]=>
+  int(44)
+  [777]=>
+  int(333)
+  [888]=>
+  int(444)
+}
+
+# var_dump(TestConst::allRelationDescValue());
 array(6) {
   [0]=>
   array(2) {
@@ -175,5 +218,4 @@ array(6) {
     string(3) "888"
   }
 }
-
 ```

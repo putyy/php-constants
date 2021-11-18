@@ -1,28 +1,28 @@
 <?php
-class TestConst extends \Pt\Constants\MessageBaseConst {
+class TestConst extends \Pt\Constants\DescConst {
     /**
      *
-     * @Message("555")
+     * @Desc("555")
      *
      */
     const COMMENT_TXT = 11;
 
     /**
-     * @Message("666")
+     * @Desc("666")
      *
      */
     const COMMENT_TXT_TWO = 22;
 
     /**
      * @Group("aa")
-     * @Message("33333")
+     * @Desc("33333")
      *
      */
     const COMMENT_TXT1 = 33;
 
     /**
      * @Group("aa")
-     * @Message("22222")
+     * @Desc("22222")
      *
      */
     const COMMENT_TXT_TWO2 = 44;
@@ -31,7 +31,7 @@ class TestConst extends \Pt\Constants\MessageBaseConst {
     /**
      * all的方式 属性值一样的话会覆盖前面的值
      * @Group("bb")
-     * @Message("777")
+     * @Desc("777")
      *
      */
     const COMMENT_TXT3 = 333;
@@ -39,7 +39,7 @@ class TestConst extends \Pt\Constants\MessageBaseConst {
     /**
      * all的方式 属性值一样的话会覆盖前面的值
      * @Group("bb")
-     * @Message("888")
+     * @Desc("888")
      *
      */
     const COMMENT_TXT_TWO3 = 444;

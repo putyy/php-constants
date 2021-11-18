@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-class WeChatMsgConst extends \Pt\Constants\MessageBaseConst
+class WeChatMsgConst extends \Pt\Constants\DescConst
 {
     /**
-     * @Message("
+     * @Desc("
     {
     "touser":"{{openid}}",
     "msgtype":"text",
@@ -23,6 +23,6 @@ class WeChatMsgConst extends \Pt\Constants\MessageBaseConst
      */
     public static function buildMessage(array $data, int $mark): string
     {
-        return parent::replace($data, parent::getMessage($mark));
+        return parent::replace($data, parent::getDesc($mark));
     }
 }
