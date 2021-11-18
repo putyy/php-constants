@@ -1,4 +1,7 @@
 ## 自用常量基础类库
+```
+composer require putyy/php-constants
+```
 
 ### 示例1
 ```shell
