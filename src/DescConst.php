@@ -49,8 +49,9 @@ abstract class DescConst extends BaseConst
             static::$messageInfo[static::class] = [];
             $re = new \ReflectionClass(new static());
             foreach ($re->getReflectionConstants() as $obj) {
-                preg_match('/\@' . static::$groupMessageAnnotationMark . '\("([\s\S]*?)"\)\s+\*/', $obj->getDocComment(), $group);
-                preg_match('/\@' . static::$messageAnnotationMark . '\("([\s\S]*)"\)\s+\*/', $obj->getDocComment(), $match);
+                $getDocComment = $obj->getDocComment() != '' ? $obj->getDocComment() : '';
+                preg_match('/\@' . static::$groupMessageAnnotationMark . '\("([\s\S]*?)"\)\s+\*/', $getDocComment, $group);
+                preg_match('/\@' . static::$messageAnnotationMark . '\("([\s\S]*)"\)\s+\*/', $getDocComment, $match);
                 if (isset($group[1])) {
                     static::$groupMessageInfo[static::class][$group[1]][$obj->getValue()] = $match[1] ?? '';
                 } else {
