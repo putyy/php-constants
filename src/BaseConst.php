@@ -15,7 +15,7 @@ abstract class BaseConst
         $replace = [];
         foreach ($data as $k => $v) {
             $search[] = '{{' . $k . '}}';
-            $replace[] = $v;
+            $replace[] = addslashes($v);
         }
         return [$search, $replace];
     }
