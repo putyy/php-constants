@@ -4,14 +4,20 @@ composer require putyy/php-constants
 ```
 
 ### 示例1
-```shell
-# todo 发送微信消息
-# $msgData= WeChatMsgConst::buildMessage([
-#    "openid"=>"asdsadqwewqe",
-#    "content"=>"hello PHP~",
-# ]);
-# var_dump($msgData);
+```php
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/test.php';
+require_once __DIR__ . '/we-chat.php';
 
+# todo 发送微信消息
+$msgData= WeChatMsgConst::buildMessage([
+"openid"=>"asdsadqwewqe",
+"content"=>"hello PHP~",
+]);
+
+var_dump($msgData);
+```
+```text
 string(114) "
     {
     "touser":"asdsadqwewqe",
@@ -21,7 +27,6 @@ string(114) "
     "content":"hello PHP~"
     }
     }"
-
 ```
 
 ### 示例1

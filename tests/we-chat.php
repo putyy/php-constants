@@ -4,15 +4,7 @@ declare(strict_types=1);
 class WeChatMsgConst extends \Pt\Constants\DescConst
 {
     /**
-     * @Desc("
-    {
-    "touser":"{{openid}}",
-    "msgtype":"text",
-    "text":
-    {
-    "content":"{{content}}"
-    }
-    }")
+     * @Desc(" { "touser":"{{openid}}", "msgtype":"text", "text": { "content":"({{content}})" } }")
      */
     const COMMENT_TXT = 1;
 

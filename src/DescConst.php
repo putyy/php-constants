@@ -50,16 +50,29 @@ abstract class DescConst extends BaseConst
             $re = new \ReflectionClass(new static());
             foreach ($re->getReflectionConstants() as $obj) {
                 $getDocComment = $obj->getDocComment() != '' ? $obj->getDocComment() : '';
-                preg_match('/\@' . static::$groupMessageAnnotationMark . '\("([\s\S]*?)"\)\s+\*/', $getDocComment, $group);
-                preg_match('/\@' . static::$messageAnnotationMark . '\("([\s\S]*)"\)\s+\*/', $getDocComment, $match);
-                if (isset($group[1])) {
-                    static::$groupMessageInfo[static::class][$group[1]][$obj->getValue()] = $match[1] ?? '';
-                } else {
-                    static::$messageInfo[static::class][$obj->getValue()] = $match[1] ?? '';
+                $pattern = '/@(\w+)\("(.*?)"\)\s*\\*/';
+                preg_match_all($pattern, $getDocComment, $matches, PREG_SET_ORDER);
+                $annotations = [];
+                foreach ($matches as $match) {
+                    $name = $match[1];
+                    $value = $match[2];
+                    $annotations[$name] = $value;
                 }
-                static::$allMessageInfo[static::class][$obj->getValue()] = $match[1] ?? '';
+
+                if (empty($annotations)) continue;
+
+                // 注解说明必须
+                if (!isset($annotations[static::$messageAnnotationMark])) continue;
+
+                if (isset($annotations[static::$groupMessageAnnotationMark])) {
+                    static::$groupMessageInfo[static::class][$annotations[static::$groupMessageAnnotationMark]][$obj->getValue()] = $annotations[static::$messageAnnotationMark];
+                } else {
+                    static::$messageInfo[static::class][$obj->getValue()] = $annotations[static::$messageAnnotationMark];
+                }
+                static::$allMessageInfo[static::class][$obj->getValue()] = $annotations[static::$messageAnnotationMark];
             }
         } catch (\ReflectionException $exception) {
+
         }
     }
 
@@ -147,10 +160,10 @@ abstract class DescConst extends BaseConst
         }
         self::checkDecomposeNotes();
         $relation = [];
-        foreach (self::$groupMessageInfo[static::class] as $item) {
-            $relation[$groupMark] = [];
+        foreach (self::$groupMessageInfo[static::class] as $index=>$item) {
+            $relation[$index] = [];
             foreach ($item as $value => $desc) {
-                $relation[$groupMark][] = [
+                $relation[$index][] = [
                     self::$valueName => $value,
                     self::$descName => $desc,
                 ];
